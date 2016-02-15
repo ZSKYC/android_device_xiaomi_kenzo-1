@@ -207,7 +207,9 @@ PRODUCT_PACKAGES += \
     camera.msm8916 \
     libboringssl-compat \
     libstlport \
-    libmm-qcamera
+    libmm-qcamera \
+    libxml2 \
+    Snap
 
 # lights
 PRODUCT_PACKAGES += \
