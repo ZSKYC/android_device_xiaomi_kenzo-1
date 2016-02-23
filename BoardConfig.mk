@@ -145,6 +145,18 @@ TARGET_QCOM_NO_FM_FIRMWARE := true
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
 
+# Dexopt, only if we can fit that in
+ifneq ($(TARGET_TRANSPARENT_COMPRESSION_METHOD),)
+ifeq ($(HOST_OS),linux)
+  ifeq ($(TARGET_BUILD_VARIANT),user)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+    endif
+  endif
+endif
+endif
+
+
 # GPS
 TARGET_GPS_HAL_PATH := $(LOCAL_PATH)/gps
 TARGET_NO_RPC := true
