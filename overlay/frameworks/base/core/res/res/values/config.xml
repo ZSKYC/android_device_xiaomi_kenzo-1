@@ -108,7 +108,12 @@
     <!-- Screen brightness used to dim the screen when the user activity
          timeout expires.  May be less than the minimum allowed brightness setting
          that can be set by the user. -->
-    <integer name="config_screenBrightnessDim">2</integer>
+    <integer name="config_screenBrightnessDim">5</integer>
+
+ <!-- Flag indicating whether we should enable the automatic brightness in Settings.
+  config_hardware_automatic_brightness_available is not set, so we will use software implementation -->
+    <bool name="config_automatic_brightness_available">true</bool>
+
 
     <bool name="config_deviceHasVariableButtonBrightness">true</bool>
 
