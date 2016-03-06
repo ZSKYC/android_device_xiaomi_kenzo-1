@@ -15,7 +15,7 @@
 #
 BOARD_VENDOR := xiaomi
 
-LOCAL_PATH := device/xiaomi/ferrari
+LOCAL_PATH := device/xiaomi/kenzo
 
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
@@ -25,12 +25,12 @@ TARGET_INIT_VENDOR_LIB := libinit_msm
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := MSM8916
+TARGET_BOOTLOADER_BOARD_NAME := MSM8952
 TARGET_NO_BOOTLOADER := false
 TARGET_NO_KERNEL := false
 
 # Architecture
-ifneq ($(FERRARI_32_BIT),true)
+ifneq ($(KENZO_32_BIT),true)
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
@@ -51,10 +51,10 @@ TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_VARIANT := cortex-a53
+TARGET_CPU_VARIANT := cortex-a72
 endif
-TARGET_BOARD_PLATFORM := msm8916
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno405
+TARGET_BOARD_PLATFORM := msm8952
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno510
 
 # CPU
 TARGET_CPU_CORTEX_A53 := true
@@ -64,26 +64,27 @@ BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Kernel
 BOARD_DTBTOOL_ARGS                 := -2
-BOARD_MKBOOTIMG_ARGS               := --ramdisk_offset 0x02000000 --tags_offset 0x01E00000
-BOARD_KERNEL_CMDLINE               := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlyprintk androidboot.selinux=permissive
-BOARD_KERNEL_SEPARATED_DT          := true
+BOARD_MKBOOTIMG_ARGS               := --ramdisk_offset 0x02000000 --tags_offset 0x00000100 --dt device/xiaomi/kenzo/dt.img
+BOARD_KERNEL_CMDLINE               := androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlyprintk androidboot.selinux=permissive
+BOARD_KERNEL_SEPARATED_DT          := false
 BOARD_KERNEL_BASE                  := 0x80000000
 BOARD_KERNEL_PAGESIZE              := 2048
-BOARD_KERNEL_TAGS_OFFSET           := 0x01E00000
+BOARD_KERNEL_TAGS_OFFSET           := 0x00000100
 BOARD_RAMDISK_OFFSET               := 0x02000000
-TARGET_KERNEL_SOURCE               := kernel/xiaomi/ferrari
-ifneq ($(FERRARI_32_BIT),true)
-TARGET_KERNEL_ARCH := arm64
-TARGET_KERNEL_CONFIG := ferrari_debug_defconfig
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
-TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_USES_UNCOMPRESSED_KERNEL := true
-else
-TARGET_KERNEL_CONFIG := cyanogenmod_ferrari_defconfig
-endif
-ifneq ($(TARGET_BUILD_VARIANT),user)
-TARGET_KERNEL_ADDITIONAL_CONFIG := cyanogenmod_debug_config
-endif
+TARGET_PREBUILT_KERNEL		   := device/xiaomi/kenzo/kernel
+
+#ifneq ($(KENZO_32_BIT),true)
+#TARGET_KERNEL_ARCH := arm64
+#TARGET_KERNEL_CONFIG := kenzo_debug_defconfig
+#TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+#TARGET_KERNEL_HEADER_ARCH := arm64
+#TARGET_USES_UNCOMPRESSED_KERNEL := true
+#else
+#TARGET_KERNEL_CONFIG := cyanogenmod_kenzo_defconfig
+#endif
+#ifneq ($(TARGET_BUILD_VARIANT),user)
+#TARGET_KERNEL_ADDITIONAL_CONFIG := cyanogenmod_debug_config
+#endif
 
 # Audio
 AUDIO_FEATURE_DEEP_BUFFER_RINGTONE := true
@@ -135,8 +136,7 @@ SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
 TARGET_USES_NEW_ION_API := true
 
 # CMHW
-BOARD_HARDWARE_CLASS := device/xiaomi/ferrari/cmhw
-TARGET_TAP_TO_WAKE_NODE := "/sys/devices/soc.0/78b9000.i2c/i2c-5/5-004a/wakeup_mode"
+BOARD_HARDWARE_CLASS := device/xiaomi/kenzo/cmhw
 
 # FM
 AUDIO_FEATURE_ENABLED_FM := true
@@ -165,7 +165,7 @@ TARGET_NO_RPC := true
 TARGET_PROVIDES_LIBLIGHT := true
 
 # LOGD
-TARGET_USES_LOGD := false
+TARGET_USES_LOGD := true
 
 # Malloc
 MALLOC_IMPL := dlmalloc
@@ -195,9 +195,10 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 
 # TWRP-Specific
 TW_THEME := portrait_hdpi
-BOARD_HAS_NO_REAL_SDCARD := true
+BOARD_HAS_NO_REAL_SDCARD := false
 RECOVERY_SDCARD_ON_DATA := true
 TW_INCLUDE_CRYPTO := true
+TARGET_PREBUILT_RECOVERY_KERNEL := device/xiaomi/kenzo/kernel
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 BOARD_SUPPRESS_SECURE_ERASE := true
@@ -214,7 +215,7 @@ include device/qcom/sepolicy/sepolicy.mk
 
 # SELinux
 BOARD_SEPOLICY_DIRS += \
-    device/xiaomi/ferrari/sepolicy
+    device/xiaomi/kenzo/sepolicy
 
 # Qualcomm support
 BOARD_USES_QC_TIME_SERVICES := true
@@ -245,5 +246,5 @@ TARGET_USES_QCOM_WCNSS_QMI       := true
 
 
 # inherit from the proprietary version
--include vendor/xiaomi/ferrari/BoardConfigVendor.mk
+-include vendor/xiaomi/kenzo/BoardConfigVendor.mk
 

@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-$(call inherit-product-if-exists, vendor/xiaomi/ferrari/ferrari-vendor.mk)
+$(call inherit-product-if-exists, vendor/xiaomi/kenzo/kenzo-vendor.mk)
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -31,6 +31,8 @@ $(call inherit-product, frameworks/native/build/phone-hdpi-2048-dalvik-heap.mk)
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
+
+
 # Art
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-swap=false
@@ -40,7 +42,7 @@ PRODUCT_CHARACTERISTICS := nosdcard
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
-    chargeonlymode \
+    charger_res_images \
     init.qcom.rc \
     init.target.rc \
     init.qcom.usb.rc \
@@ -49,7 +51,7 @@ PRODUCT_PACKAGES += \
     init.mdm.sh \
     init.qcom.class_core.sh \
     init.qcom.early_boot.sh \
-    init.qcom.factory.sh \
+    init.qcom.factory.rc \
     init.qcom.sh \
     init.qcom.syspart_fixup.sh \
     init.qcom.usb.sh

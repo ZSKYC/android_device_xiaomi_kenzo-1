@@ -12,23 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$(call inherit-product, device/xiaomi/ferrari/full_ferrari.mk)
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, device/xiaomi/kenzo/device.mk)
+
+
+$(call inherit-product, device/qcom/common/Android.mk)
+$(call inherit-product-if-exists, $(QCPATH)/common/config/device-vendor.mk)
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := ferrari
-PRODUCT_NAME := cm_ferrari
+PRODUCT_DEVICE := kenzo
+PRODUCT_NAME := cm_kenzo
 PRODUCT_BRAND := Xiaomi
-PRODUCT_MODEL := MI 4i
+PRODUCT_MODEL := HM NOTE 3
 PRODUCT_MANUFACTURER := Xiaomi
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 # Build prop overrides
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    TARGET_DEVICE="ferrari" \
-    PRODUCT_NAME="ferrari" \
-    BUILD_FINGERPRINT="Xiaomi/ferrari/ferrari:6.0.1/MMB29M:userdebug/test-keys" \
-    PRIVATE_BUILD_DESC="ferrari-userdebug 6.0.1 MMB29M test-keys"
+    TARGET_DEVICE="kenzo" \
+    PRODUCT_NAME="kenzo" \
+    BUILD_FINGERPRINT="Xiaomi/kenzo/ferrari:6.0.1/MMB29M:userdebug/test-keys" \
+    PRIVATE_BUILD_DESC="kenzo-userdebug 6.0.1 MMB29M test-keys"
